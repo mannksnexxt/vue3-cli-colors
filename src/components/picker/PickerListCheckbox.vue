@@ -1,0 +1,69 @@
+<template>
+	<label class="picker__checkbox">
+		<input
+			type="checkbox"
+			@change="$emit('checkbox-change')"
+		>
+		<span>List {{ index + 1 }}</span>
+	</label>
+</template>
+
+
+<script>
+
+export default {
+	props: {
+		index: {
+			type: Number,
+			required: true
+		}
+	}
+}
+
+</script>
+
+
+<style lang="scss">
+$inputColor: #dfe4ea;
+
+.picker__checkbox {
+	user-select: none;
+	input {
+		position: absolute;
+		z-index: -1;
+		opacity: 0;
+	}
+	&[checked="true"] {
+		span::before {
+			background: $inputColor;
+			border-radius: 50%;
+		}
+	}
+	span {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		position: relative;
+		&::before {
+			transition: .2s;
+			content: '';
+			display: inline-block;
+			width: 25px;
+			height: 25px;
+			border: 1px solid $inputColor;
+		}
+	}
+	&:hover > span::before {
+		transform: scale(1.1);
+		box-shadow: 0px 0px 8px 2px rgba($color: #000000, $alpha: .05);
+	}
+	&--half-full {
+		span {
+			&::before {
+				background: $inputColor;
+				box-shadow: inset 0 0 0px 8px #fff;
+			}		
+		}
+	}
+}
+</style>
